@@ -43,9 +43,9 @@ const convertData = {
 
     convert() {
         if (this.input1) {
-            
+            const result = SI[this.select1];
             const input2 = document.querySelector('[name = input2]');
-            input2.setAttribute('value', 'значение');
+            input2.setAttribute('value', result);
         } 
 
         if (this.input2) {
