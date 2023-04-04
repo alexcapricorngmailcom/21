@@ -1,0 +1,42 @@
+@import _defaults
+
+html
+    font-family: sans-serif
+    font-size: 10px
+
+.header
+    text-align: center
+    font-size: 2.5rem
+    margin-top: 2rem
+
+.convertor
+    position: relative
+    display: flex
+    justify-content: center
+    margin-top: 2em
+    &-item
+        display: flex
+        flex-direction: column
+    &-item + &-item
+        margin-left: 10rem
+    &-equals
+        position: absolute
+        top: 50%
+        left: 50%
+        transform: translate(-50%,-50%)
+        font-size: 3em
+        color: #70757a
+    &-input
+        padding: 10px 5px
+        border: 1px solid #000000
+            bottom: none
+        text-align: center
+        font-size: 2rem
+        font-weight: bold
+    &-select
+        padding: 5px
+        border: 1px solid #000000
+        background-color: #f8f9fa
+
+
+

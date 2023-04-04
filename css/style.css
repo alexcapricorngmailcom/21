@@ -1,0 +1,92 @@
+table, thead, tbody, tfoot, tr, th, td {
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-collapse: inherit;
+  border-spacing: 0;
+  border-color: inherit;
+  vertical-align: inherit;
+  font-weight: inherit;
+  -webkit-border-horizontal-spacing: 0;
+  -webkit-border-vertical-spacing: 0;
+}
+
+*, *:before, *:after, input, textarea, button, select {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+input, option, textarea {
+  border-radius: 0;
+  box-shadow: none !important;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+ul, ol {
+  list-style-type: none;
+}
+
+a, button, select {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+}
+
+input:focus, label:focus, textarea:focus, select:focus, option:focus, button:focus, a:focus {
+  outline: none;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+html {
+  font-family: sans-serif;
+  font-size: 10px;
+}
+
+.header {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-top: 2rem;
+}
+
+.convertor {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-top: 2em;
+}
+.convertor-item {
+  display: flex;
+  flex-direction: column;
+}
+.convertor-item + .convertor-item {
+  margin-left: 10rem;
+}
+.convertor-equals {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3em;
+  color: #70757a;
+}
+.convertor-input {
+  padding: 10px 5px;
+  border: 1px solid #000000;
+  border-bottom: none;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+}
+.convertor-select {
+  padding: 5px;
+  border: 1px solid #000000;
+  background-color: #f8f9fa;
+}/*# sourceMappingURL=style.css.map */
