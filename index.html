@@ -12,11 +12,11 @@
     <div class="container">
         
         <h2 class="header">Конвертор величин длины</h2>
-
-        <div class="convertor">
+        
+        <form class="convertor" action="">
             <div class="convertor-item">
-                <input class="convertor-input" name ='input1' type="text">
-                <select class="convertor-select" name="select1" id="">
+                <input class="convertor-input mainInput" type="text" placeholder="Введите значение">
+                <select class="convertor-select mainSelect" id="">
                     <option value="m">Метры</option>
                     <option value="cm" selected>Сантиметры</option>
                     <option value="in">Дюймы</option>
@@ -24,16 +24,28 @@
                 </select>
             </div>
             <div class="convertor-item">
-                <input class="convertor-input" name ='input2' type="text">
-                <select class="convertor-select" name="select2" id="">
-                    <option value="m" selected>Метры</option>
+                <button class="convertor-btn" type="button">Конвертировать</button>
+            </div>
+            <div class="convertor-item">
+                <input class="convertor-input slaveInput" type="text" placeholder="Результат" readonly>
+                <select class="convertor-select convertToSelect" id="">
+                    <option value="m">Метры</option>
                     <option value="cm">Сантиметры</option>
                     <option value="in">Дюймы</option>
                     <option value="ft">Футы</option>
                 </select>
             </div>
-            <p class="convertor-equals">=</p>
-        </div>
+        </form>
+
+        <h2 class="header">Расширение списка величин для конвертации</h2>
+
+        <form class="convertor addValue" action="">
+            <div class="convertor-item">
+                <input class="convertor-input convertor-input__addName" type="text" placeholder="Введите название новой величины" required>
+                <input class="convertor-input convertor-input__addValue" type="text" placeholder="Сколько метров в вашей величине?" required>
+                <button class="convertor-btn convertor-btn__addBtn" type="button">Добавить значение</button>
+            </div>
+        </form>
 
     </div>
 

@@ -27,62 +27,97 @@
 
 const SI = {
     m: 1,
-    mm: 0.001,
     cm: 0.01,
-    km: 1000,
     in: 0.0254,
     ft: 0.3048,
-    yd: 0.9144
+
+    // mm: 0.001,
+    // km: 1000,
+    // yd: 0.9144
 };
 
-const convertData = {
-    input1: undefined,
-    select1: undefined,
-    input2: undefined,
-    select2: undefined,
 
-    convert() {
-        if (this.input1) {
-            const result = SI[this.select1];
-            const input2 = document.querySelector('[name = input2]');
-            input2.setAttribute('value', result);
-        } 
+const appConw = {
+    convertData: {
+        distance: {unit: 'cm', value: 0}, 
+        convert_to: 'm'
+    },
 
-        if (this.input2) {
-            const input1 = document.querySelector('[name = input1]');
-            input1.setAttribute('value', 'значение');
+    calc(data) {
+        const slaveInput = document.querySelector('.slaveInput');
+        
+        let result = data.distance.value * SI[data.distance.unit];
+
+        if (!(data.convert_to == 'm')) {
+            result = result / SI[data.convert_to];
         }
-    
-    }
+
+        result = Math.round(result * 100) / 100;
+        
+        slaveInput.setAttribute('value', result);
+        return {unit: data.convert_to, value: result};
+    },
+
 };
 
+const input = document.querySelector('.mainInput');
 
-
-const form = document.querySelector('.convertor');
-
-const defaults = form.querySelectorAll('[name]');
-
-defaults.forEach(el => {
-    const name = el.name;
-    const value = el.value;
-
-    convertData[name] = value;
-})
-
-form.addEventListener('input', event => {
-    const target = event.target;
-    const name = target.name;
+input.addEventListener('input', event => {
+    const target = event.currentTarget;
     const value = target.value;
 
-    convertData[name] = value;
-
-    convertData.convert();
+    appConw.convertData.distance.value = value;
 });
 
+const mainSelect = document.querySelector('.mainSelect');
 
-// let example = {distance: {unit: 'm', value: 0.5}, convert_to: 'ft'};
+mainSelect.addEventListener('input', event => {
+    const target = event.currentTarget;
+    const value = target.value;
 
+    appConw.convertData.distance.unit = value;
 
+});
 
-// let example = {distance: {unit: 'm', value: 0.5}, convert_to: 'ft'};
-// appConw.calc(example); // {unit: ft, value: 1.64}
+const convertToSelect = document.querySelector('.convertToSelect');
+
+convertToSelect.addEventListener('input', event => {
+    const target = event.currentTarget;
+    const value = target.value;
+
+    appConw.convertData.convert_to = value;
+});
+
+const convertBtn = document.querySelector('.convertor-btn');
+
+convertBtn.addEventListener('click', event => {
+    console.log(appConw.calc(appConw.convertData));
+});
+
+// part2 addName, addValue, addBtn
+
+const arr = [];
+
+const addName = document.querySelector('.convertor-input__addName');
+
+addName.addEventListener('input', event => {
+    const target = event.currentTarget;
+    const name = target.value;
+
+    arr[0] = name;
+});
+
+const addValue = document.querySelector('.convertor-input__addValue');
+
+addValue.addEventListener('input', event => {
+    const target = event.currentTarget;
+    const value = target.value;
+
+    arr[1] = value;
+});
+
+const addBtn = document.querySelector('.convertor-btn__addBtn');
+
+addBtn.addEventListener('click', event => {
+    SI[arr[0]] = parseFloat(arr[1]);
+});

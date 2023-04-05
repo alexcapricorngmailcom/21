@@ -17,26 +17,27 @@ html
     &-item
         display: flex
         flex-direction: column
+        justify-content: center
     &-item + &-item
-        margin-left: 10rem
-    &-equals
-        position: absolute
-        top: 50%
-        left: 50%
-        transform: translate(-50%,-50%)
-        font-size: 3em
-        color: #70757a
+        margin-left: 2rem
     &-input
-        padding: 10px 5px
+        padding: 10px 6px
         border: 1px solid #000000
             bottom: none
         text-align: center
-        font-size: 2rem
+        font-size: 2.1rem
         font-weight: bold
+        &::placeholder
+            font-size: 0.8em
+            font-weight: normal
+            color: #d3d3d3
     &-select
         padding: 5px
         border: 1px solid #000000
         background-color: #f8f9fa
-
-
-
+    &-btn
+        padding: 0.5rem 1.5rem
+        border: 1px solid #000000
+        background: linear-gradient(#f2f4f7, #ffffff)
+        &:hover
+            background: linear-gradient(#ffffff, #f2f4f7)
