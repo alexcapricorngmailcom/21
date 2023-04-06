@@ -57,6 +57,27 @@ const appConw = {
         return {unit: data.convert_to, value: result};
     },
 
+    selectVisibility() {
+        const mainSelect = document.querySelectorAll('.mainSelect > option');
+        const convertToSelect = document.querySelectorAll('.convertToSelect > option');
+    
+        mainSelect.forEach(el => {
+            el.classList.remove('convertor-option');
+
+            if(el.value == this.convertData.convert_to) {
+                el.classList.add('convertor-option');
+            }
+        });
+
+        convertToSelect.forEach(el => {
+            el.classList.remove('convertor-option');
+
+            if(el.value == this.convertData.distance.unit) {
+                el.classList.add('convertor-option');
+            }
+        });
+    },
+
 };
 
 const input = document.querySelector('.mainInput');
@@ -79,6 +100,8 @@ mainSelect.addEventListener('input', event => {
     const value = target.value;
 
     appConw.convertData.distance.unit = value;
+
+    appConw.selectVisibility();
 });
 
 const convertToSelect = document.querySelector('.convertToSelect');
@@ -88,6 +111,8 @@ convertToSelect.addEventListener('input', event => {
     const value = target.value;
 
     appConw.convertData.convert_to = value;
+
+    appConw.selectVisibility();
 });
 
 const convertBtn = document.querySelector('.convertor-btn');
@@ -141,7 +166,7 @@ addBtn.addEventListener('click', event => {
     
     if (arr[0] && arr[1] && arr[2]) {
         SI[arr[1]] = parseFloat(arr[2]);
-
+        
     const select = document.querySelectorAll('.convertor-select');
     select.forEach(el => {
         let option = document.createElement('option');
