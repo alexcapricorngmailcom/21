@@ -36,7 +36,6 @@ const SI = {
     // yd: 0.9144
 };
 
-
 const appConw = {
     convertData: {
         distance: {unit: 'cm', value: null}, 
@@ -66,7 +65,7 @@ input.addEventListener('input', event => {
     const target = event.currentTarget;
     const value = parseFloat(target.value);
     
-    if(value){
+    if (value) {
         appConw.convertData.distance.value = value;
     } else {
         alert('Введите цифровое значение!');
@@ -80,7 +79,6 @@ mainSelect.addEventListener('input', event => {
     const value = target.value;
 
     appConw.convertData.distance.unit = value;
-
 });
 
 const convertToSelect = document.querySelector('.convertToSelect');
@@ -130,7 +128,7 @@ addValue.addEventListener('input', event => {
     const target = event.currentTarget;
     const value = parseFloat(target.value);
 
-    if(value){
+    if (value) {
         arr[2] = value;
     } else {
         alert('Введите цифровое значение!');
