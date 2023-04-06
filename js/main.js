@@ -39,7 +39,7 @@ const SI = {
 
 const appConw = {
     convertData: {
-        distance: {unit: 'cm', value: 0}, 
+        distance: {unit: 'cm', value: null}, 
         convert_to: 'm'
     },
 
@@ -64,9 +64,13 @@ const input = document.querySelector('.mainInput');
 
 input.addEventListener('input', event => {
     const target = event.currentTarget;
-    const value = target.value;
-
-    appConw.convertData.distance.value = value;
+    const value = parseFloat(target.value);
+    
+    if(value){
+        appConw.convertData.distance.value = value;
+    } else {
+        alert('Введите цифровое значение!');
+    }
 });
 
 const mainSelect = document.querySelector('.mainSelect');
@@ -91,14 +95,18 @@ convertToSelect.addEventListener('input', event => {
 const convertBtn = document.querySelector('.convertor-btn');
 
 convertBtn.addEventListener('click', event => {
-    console.log(appConw.calc(appConw.convertData));
+    if (!appConw.convertData.distance.value) {
+        alert('Введите значение в поле для конвертации');
+    } else {
+        console.log(appConw.calc(appConw.convertData));
+    }
 });
 
 // part2 addName, addValue, addBtn
 
 const arr = [];
 
-const addName = document.querySelector('.convertor-input__addName');
+const addName = document.querySelector('.addName');
 
 addName.addEventListener('input', event => {
     const target = event.currentTarget;
@@ -107,17 +115,43 @@ addName.addEventListener('input', event => {
     arr[0] = name;
 });
 
-const addValue = document.querySelector('.convertor-input__addValue');
+const addShortName = document.querySelector('.addShortName');
+
+addShortName.addEventListener('input', event => {
+    const target = event.currentTarget;
+    const name = target.value;
+
+    arr[1] = name;
+});
+
+const addValue = document.querySelector('.addValue');
 
 addValue.addEventListener('input', event => {
     const target = event.currentTarget;
-    const value = target.value;
+    const value = parseFloat(target.value);
 
-    arr[1] = value;
+    if(value){
+        arr[2] = value;
+    } else {
+        alert('Введите цифровое значение!');
+    }
 });
 
-const addBtn = document.querySelector('.convertor-btn__addBtn');
+const addBtn = document.querySelector('.addBtn');
 
 addBtn.addEventListener('click', event => {
-    SI[arr[0]] = parseFloat(arr[1]);
+    
+    if (arr[0] && arr[1] && arr[2]) {
+        SI[arr[1]] = parseFloat(arr[2]);
+
+    const select = document.querySelectorAll('.convertor-select');
+    select.forEach(el => {
+        let option = document.createElement('option');
+        option.innerText = arr[0];
+        option.setAttribute('value', arr[1]);
+        el.append(option);
+    });
+    } else {
+        alert('Все поля расширения списка величин для конвертации должны быть заполнены');
+    }
 });
