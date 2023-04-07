@@ -15,8 +15,8 @@
         
         <form class="convertor" action="">
             <div class="convertor-item">
-                <input class="convertor-input mainInput" type="text" placeholder="Введите значение">
-                <select class="convertor-select mainSelect" id="">
+                <input class="convertor-input" name="distanceValueInput" type="text" placeholder="Введите значение">
+                <select class="convertor-select" name="distanceUnitSelect" id="">
                     <option class="convertor-option" value="m">Метры</option>
                     <option value="cm" selected>Сантиметры</option>
                     <option value="in">Дюймы</option>
@@ -28,7 +28,7 @@
             </div>
             <div class="convertor-item">
                 <input class="convertor-input slaveInput" type="text" placeholder="Результат" readonly>
-                <select class="convertor-select convertToSelect" id="">
+                <select class="convertor-select" name="convertToUnitSelect" id="">
                     <option value="m">Метры</option>
                     <option class="convertor-option" value="cm">Сантиметры</option>
                     <option value="in">Дюймы</option>
@@ -39,12 +39,12 @@
 
         <h2 class="header">Расширение списка величин для конвертации</h2>
 
-        <form class="convertor addMeasures" action="">
+        <form class="convertor" action="">
             <div class="convertor-item">
-                <input class="convertor-input addName" type="text" placeholder="Введите название величины (Ярды)">
-                <input class="convertor-input addShortName" type="text" placeholder="Сокращенное название величины (yd)">
-                <input class="convertor-input addValue" type="text" placeholder="Сколько метров в вашей величине?">
-                <button class="convertor-btn addBtn" type="button">Добавить значение в список</button>
+                <input class="convertor-input" name="newUnitName" type="text" placeholder="Введите название величины (Ярды)">
+                <input class="convertor-input" name="newUnitAbbr" type="text" placeholder="Введите аббревиатуру (yd)">
+                <input class="convertor-input" name="newUnitValue" type="text" placeholder="Сколько метров в вашей величине?">
+                <button class="convertor-btn newUnitBtn" type="button">Добавить значение в список</button>
             </div>
         </form>
 

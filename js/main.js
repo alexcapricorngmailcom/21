@@ -42,6 +42,12 @@ const appConw = {
         convert_to: 'm'
     },
 
+    newUnit: {
+        UnitName: '',
+        UnitAbbr: '',
+        UnitValue: null
+    },
+
     calc(data) {
         const slaveInput = document.querySelector('.slaveInput');
         
@@ -58,21 +64,21 @@ const appConw = {
     },
 
     selectVisibility() {
-        const mainSelect = document.querySelectorAll('.mainSelect > option');
-        const convertToSelect = document.querySelectorAll('.convertToSelect > option');
+        const distanceUnitSelect = document.querySelectorAll('[name=distanceUnitSelect] > option');
+        const convertToUnitSelect = document.querySelectorAll('[name=convertToUnitSelect] > option');
     
-        mainSelect.forEach(el => {
+        distanceUnitSelect.forEach(el => {
             el.classList.remove('convertor-option');
 
-            if(el.value == this.convertData.convert_to) {
+            if (el.value == this.convertData.convert_to) {
                 el.classList.add('convertor-option');
             }
         });
 
-        convertToSelect.forEach(el => {
+        convertToUnitSelect.forEach(el => {
             el.classList.remove('convertor-option');
 
-            if(el.value == this.convertData.distance.unit) {
+            if (el.value == this.convertData.distance.unit) {
                 el.classList.add('convertor-option');
             }
         });
@@ -80,44 +86,52 @@ const appConw = {
 
 };
 
-const input = document.querySelector('.mainInput');
+const distanceValueInput = document.querySelector('[name=distanceValueInput]');
 
-input.addEventListener('input', event => {
+distanceValueInput.addEventListener('input', event => {
     const target = event.currentTarget;
     const value = parseFloat(target.value);
     
     if (value) {
         appConw.convertData.distance.value = value;
+        distanceValueInput.value = value;
     } else {
-        alert('Введите цифровое значение!');
+        distanceValueInput.value = '';
     }
 });
 
-const mainSelect = document.querySelector('.mainSelect');
+//Уточнить у мыша input.value = value;
 
-mainSelect.addEventListener('input', event => {
+const distanceUnitSelect = document.querySelector('[name=distanceUnitSelect]');
+
+distanceUnitSelect.addEventListener('input', event => {
     const target = event.currentTarget;
     const value = target.value;
 
     appConw.convertData.distance.unit = value;
 
+    convertorBtn.click();
+
     appConw.selectVisibility();
+    
 });
 
-const convertToSelect = document.querySelector('.convertToSelect');
+const convertToUnitSelect = document.querySelector('[name=convertToUnitSelect]');
 
-convertToSelect.addEventListener('input', event => {
+convertToUnitSelect.addEventListener('input', event => {
     const target = event.currentTarget;
     const value = target.value;
 
     appConw.convertData.convert_to = value;
 
+    convertorBtn.click();
+
     appConw.selectVisibility();
 });
 
-const convertBtn = document.querySelector('.convertor-btn');
+const convertorBtn = document.querySelector('.convertor-btn');
 
-convertBtn.addEventListener('click', event => {
+convertorBtn.addEventListener('click', event => {
     if (!appConw.convertData.distance.value) {
         alert('Введите значение в поле для конвертации');
     } else {
@@ -125,56 +139,75 @@ convertBtn.addEventListener('click', event => {
     }
 });
 
-// part2 addName, addValue, addBtn
+// part2: newUnitName, unitAbbr, newUnitValue, newUnitBtn
 
-const arr = [];
+const newUnitName = document.querySelector('[name="newUnitName"]');
 
-const addName = document.querySelector('.addName');
-
-addName.addEventListener('input', event => {
+newUnitName.addEventListener('input', event => {
     const target = event.currentTarget;
     const name = target.value;
 
-    arr[0] = name;
+    appConw.newUnit.UnitName = name;
 });
 
-const addShortName = document.querySelector('.addShortName');
+const newUnitAbbr = document.querySelector('[name="newUnitAbbr"]');
 
-addShortName.addEventListener('input', event => {
+newUnitAbbr.addEventListener('input', event => {
     const target = event.currentTarget;
     const name = target.value;
 
-    arr[1] = name;
+    appConw.newUnit.UnitAbbr = name;
 });
 
-const addValue = document.querySelector('.addValue');
+const newUnitValue = document.querySelector('[name="newUnitValue"]');
 
-addValue.addEventListener('input', event => {
+newUnitValue.addEventListener('input', event => {
     const target = event.currentTarget;
     const value = parseFloat(target.value);
 
     if (value) {
-        arr[2] = value;
+        appConw.newUnit.UnitValue = value;
+        newUnitValue.value = value;
     } else {
-        alert('Введите цифровое значение!');
+        newUnitValue.value = '';
     }
 });
 
-const addBtn = document.querySelector('.addBtn');
+const newUnitBtn = document.querySelector('.newUnitBtn');
 
-addBtn.addEventListener('click', event => {
+newUnitBtn.addEventListener('click', event => {
     
-    if (arr[0] && arr[1] && arr[2]) {
-        SI[arr[1]] = parseFloat(arr[2]);
+    
+
+    if (appConw.newUnit.UnitName && appConw.newUnit.UnitAbbr && appConw.newUnit.UnitValue) {
+    
+        SI[appConw.newUnit.UnitAbbr] = parseFloat(appConw.newUnit.UnitValue);
         
-    const select = document.querySelectorAll('.convertor-select');
-    select.forEach(el => {
-        let option = document.createElement('option');
-        option.innerText = arr[0];
-        option.setAttribute('value', arr[1]);
-        el.append(option);
-    });
+        const select = document.querySelectorAll('.convertor-select');
+        
+        select.forEach(el => {
+            const option = document.createElement('option');
+            option.innerText = appConw.newUnit.UnitName;
+            option.setAttribute('value', appConw.newUnit.UnitAbbr);
+            el.append(option);
+        });
+
+        newUnitName.value = '';
+        newUnitAbbr.value = '';
+        newUnitValue.value = '';
+
+        appConw.newUnit.UnitName = '';
+        appConw.newUnit.UnitAbbr = '';
+        appConw.newUnit.UnitValue = null;
     } else {
-        alert('Все поля расширения списка величин для конвертации должны быть заполнены');
+        alert('Все поля списка новой величины должны быть заполнены!');
     }
 });
+
+// для кнопки класс или id?
+
+// for (sameName in SI) {
+//     if (appConw.newUnit.UnitAbbr === sameName) {
+//         alert('Такая величина уже присутствует в списке');
+//     }
+// }
