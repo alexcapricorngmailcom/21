@@ -48,8 +48,13 @@ const appConw = {
         UnitValue: null
     },
 
+    calcResult: {
+        unit: '', 
+        value: null
+    },
+
     calc(data) {
-        const slaveInput = document.querySelector('.slaveInput');
+        const convertToInput = document.querySelector('[name="convertToInput"]');
         
         let result = data.distance.value * SI[data.distance.unit];
 
@@ -59,9 +64,11 @@ const appConw = {
 
         result = Math.round(result * 100) / 100;
         
-        slaveInput.setAttribute('value', result);
-        return {unit: data.convert_to, value: result};
+        convertToInput.setAttribute('value', result);
+        return this.calcResult.unit = data.convert_to, this.calcResult.value = result;
     },
+
+    //Уточнить у мыша про return
 
     selectVisibility() {
         const distanceUnitSelect = document.querySelectorAll('[name=distanceUnitSelect] > option');
@@ -135,7 +142,7 @@ convertorBtn.addEventListener('click', event => {
     if (!appConw.convertData.distance.value) {
         alert('Введите значение в поле для конвертации');
     } else {
-        console.log(appConw.calc(appConw.convertData));
+        appConw.calc(appConw.convertData);
     }
 });
 
@@ -147,7 +154,7 @@ newUnitName.addEventListener('input', event => {
     const target = event.currentTarget;
     const name = target.value;
 
-    appConw.newUnit.UnitName = name;
+    appConw.newUnit.UnitName = name.trim();
 });
 
 const newUnitAbbr = document.querySelector('[name="newUnitAbbr"]');
@@ -156,7 +163,7 @@ newUnitAbbr.addEventListener('input', event => {
     const target = event.currentTarget;
     const name = target.value;
 
-    appConw.newUnit.UnitAbbr = name;
+    appConw.newUnit.UnitAbbr = name.trim();
 });
 
 const newUnitValue = document.querySelector('[name="newUnitValue"]');
@@ -176,11 +183,23 @@ newUnitValue.addEventListener('input', event => {
 const newUnitBtn = document.querySelector('.newUnitBtn');
 
 newUnitBtn.addEventListener('click', event => {
-    
-    
 
     if (appConw.newUnit.UnitName && appConw.newUnit.UnitAbbr && appConw.newUnit.UnitValue) {
+
+        for (sameName in SI) {
+            if (appConw.newUnit.UnitAbbr === sameName) {
+                
+                newUnitAbbr.value = '';
+                appConw.newUnit.UnitAbbr = '';
+
+                alert('Такая величина уже присутствует в списке');
+                break;
+            }
+        }
+    }
     
+    if (appConw.newUnit.UnitName && appConw.newUnit.UnitAbbr && appConw.newUnit.UnitValue) {
+        
         SI[appConw.newUnit.UnitAbbr] = parseFloat(appConw.newUnit.UnitValue);
         
         const select = document.querySelectorAll('.convertor-select');
@@ -205,9 +224,3 @@ newUnitBtn.addEventListener('click', event => {
 });
 
 // для кнопки класс или id?
-
-// for (sameName in SI) {
-//     if (appConw.newUnit.UnitAbbr === sameName) {
-//         alert('Такая величина уже присутствует в списке');
-//     }
-// }
