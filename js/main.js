@@ -99,10 +99,13 @@ const distanceValueInput = document.querySelector('[name=distanceValueInput]');
 
 distanceValueInput.addEventListener('input', event => {
     const target = event.currentTarget;
-    const value = parseFloat(target.value);
+    let value = target.value;
 
     if (value || value == 0) {
-        appConw.convertData.distance.value = value;
+
+        value = value.replace(",", ".");
+        
+        appConw.convertData.distance.value = parseFloat(value);
         distanceValueInput.value = value;
     } else {
         distanceValueInput.value = '';
@@ -141,10 +144,10 @@ convertToUnitSelect.addEventListener('input', event => {
 const convertorBtn = document.querySelector('.convertor-btn');
 
 convertorBtn.addEventListener('click', event => {
-    if (!appConw.convertData.distance.value) {
-        alert('Введите значение в поле для конвертации');
-    } else {
+    if (appConw.convertData.distance.value || appConw.convertData.distance.value == 0) {
         console.log(appConw.calc(appConw.convertData));
+    } else {
+        alert('Введите значение в поле для конвертации');
     }
 });
 
@@ -195,7 +198,7 @@ newUnitBtn.addEventListener('click', event => {
         const key = keys.find(el => el == appConw.newUnit.UnitAbbr); 
         
         if (key) {
-            return alert(`Величина ${appConw.newUnit.UnitAbbr} уже присутствует в списке`), newUnitAbbr.style.color = 'red';
+            return alert(`Величина "${appConw.newUnit.UnitAbbr}" уже присутствует в списке`), newUnitAbbr.style.color = 'red';
         }
         
         SI[appConw.newUnit.UnitAbbr] = parseFloat(appConw.newUnit.UnitValue);
@@ -208,6 +211,8 @@ newUnitBtn.addEventListener('click', event => {
             option.setAttribute('value', appConw.newUnit.UnitAbbr);
             el.append(option);
         });
+
+        alert(`Величина "${newUnitName.value}" добавлена в список`)
 
         newUnitName.value = '';
         newUnitAbbr.value = '';
