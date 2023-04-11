@@ -144,7 +144,7 @@ convertorBtn.addEventListener('click', event => {
     if (!appConw.convertData.distance.value) {
         alert('Введите значение в поле для конвертации');
     } else {
-        appConw.calc(appConw.convertData);
+        console.log(appConw.calc(appConw.convertData));
     }
 });
 
