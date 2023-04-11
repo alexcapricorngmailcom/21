@@ -65,10 +65,12 @@ const appConw = {
         result = Math.round(result * 100) / 100;
         
         convertToInput.setAttribute('value', result);
-        return this.calcResult.unit = data.convert_to, this.calcResult.value = result;
+        
+        this.calcResult.unit = data.convert_to;
+        this.calcResult.value = result;
+        
+        return appConw.calcResult;
     },
-
-    //Уточнить у мыша про return
 
     selectVisibility() {
         const distanceUnitSelect = document.querySelectorAll('[name=distanceUnitSelect] > option');
@@ -98,8 +100,8 @@ const distanceValueInput = document.querySelector('[name=distanceValueInput]');
 distanceValueInput.addEventListener('input', event => {
     const target = event.currentTarget;
     const value = parseFloat(target.value);
-    
-    if (value) {
+
+    if (value || value == 0) {
         appConw.convertData.distance.value = value;
         distanceValueInput.value = value;
     } else {
@@ -107,7 +109,7 @@ distanceValueInput.addEventListener('input', event => {
     }
 });
 
-//Уточнить у мыша input.value = value;
+// уточнить про value == 0
 
 const distanceUnitSelect = document.querySelector('[name=distanceUnitSelect]');
 
@@ -160,6 +162,7 @@ newUnitName.addEventListener('input', event => {
 const newUnitAbbr = document.querySelector('[name="newUnitAbbr"]');
 
 newUnitAbbr.addEventListener('input', event => {
+    newUnitAbbr.style.color = 'black';
     const target = event.currentTarget;
     const name = target.value;
 
@@ -184,21 +187,16 @@ const newUnitBtn = document.querySelector('.newUnitBtn');
 
 newUnitBtn.addEventListener('click', event => {
 
-    if (appConw.newUnit.UnitName && appConw.newUnit.UnitAbbr && appConw.newUnit.UnitValue) {
-
-        for (sameName in SI) {
-            if (appConw.newUnit.UnitAbbr === sameName) {
-                
-                newUnitAbbr.value = '';
-                appConw.newUnit.UnitAbbr = '';
-
-                alert('Такая величина уже присутствует в списке');
-                break;
-            }
-        }
-    }
+    if (!appConw.newUnit.UnitName || !appConw.newUnit.UnitAbbr || !appConw.newUnit.UnitValue) {
+        alert('Все поля списка новой величины должны быть заполнены!');    
+    } else {
+        const keys = Object.keys(SI);
     
-    if (appConw.newUnit.UnitName && appConw.newUnit.UnitAbbr && appConw.newUnit.UnitValue) {
+        const key = keys.find(el => el == appConw.newUnit.UnitAbbr); 
+        
+        if (key) {
+            return alert(`Величина ${appConw.newUnit.UnitAbbr} уже присутствует в списке`), newUnitAbbr.style.color = 'red';
+        }
         
         SI[appConw.newUnit.UnitAbbr] = parseFloat(appConw.newUnit.UnitValue);
         
@@ -218,9 +216,5 @@ newUnitBtn.addEventListener('click', event => {
         appConw.newUnit.UnitName = '';
         appConw.newUnit.UnitAbbr = '';
         appConw.newUnit.UnitValue = null;
-    } else {
-        alert('Все поля списка новой величины должны быть заполнены!');
     }
 });
-
-// для кнопки класс или id?
